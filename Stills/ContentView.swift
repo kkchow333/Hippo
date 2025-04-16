@@ -14,6 +14,7 @@ struct ContentView: View {
     @State private var draggingItem = 0.0
     @State private var activeIndex: Int = 0
     @State private var selectedProfile: Int? = nil
+    @State private var isShowingDetail = false
     
     let xDistance: CGFloat = 150
     let profiles = ProfileInfo.mockProfiles()
@@ -40,15 +41,17 @@ struct ContentView: View {
                         .frame(width: 200, height: 200)
                         .offset(x: selectedProfile == nil ? offset(index) : (selectedProfile == index ? 0 : offset(index) * 2))
                         .zIndex(isSelected ? 1 : (1.0 - abs(dist) * 0.1))
-                        .opacity(selectedProfile == nil ? 1 : 0)  // Hide all profiles when one is selected
+                        .opacity(isShowingDetail ? 0 : 1)  // Use isShowingDetail instead
                         .onTapGesture {
                             withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
                                 if selectedProfile == index {
                                     selectedProfile = nil
+                                    isShowingDetail = false
                                 } else {
                                     draggingItem = Double(index)
                                     snappedItem = Double(index)
                                     selectedProfile = index
+                                    isShowingDetail = true
                                 }
                             }
                         }
@@ -58,12 +61,13 @@ struct ContentView: View {
                 .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
                 
                 // Profile Detail Pop-up
-                if let selected = selectedProfile {
+                if let selected = selectedProfile, isShowingDetail {
                     ReminderView(
                         name: profiles[selected].name,
                         imageURL: profiles[selected].imageURL,
                         onDismiss: {
                             withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+                                isShowingDetail = false
                                 selectedProfile = nil
                             }
                         }
