@@ -7,79 +7,155 @@ struct ReminderView: View {
     @State private var inputText: String = ""
     @State private var isEditing: Bool = false
     @State private var hasSubmittedText: Bool = false
+    @State private var selectedTags: Set<String> = []
+    @State private var isImageLoaded: Bool = false
     
     // Customizable window width
-    let windowWidth: CGFloat = 500  // Increased width
+    let windowWidth: CGFloat = 500
     
     var body: some View {
-        HStack(alignment: .top, spacing: 15) {
-            // Profile Image
-            AsyncImage(url: imageURL) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView()
-                        .frame(width: 80, height: 80)
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 80, height: 80)
-                        .clipShape(Circle())
-                case .failure(_):
-                    Image(systemName: "person.circle.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 80, height: 80)
-                        .foregroundColor(.gray)
-                @unknown default:
-                    EmptyView()
-                }
-            }
-            
-            // Text Input or Message
-            if !hasSubmittedText || isEditing {
-                HStack {
-                    TextField("Text Input", text: $inputText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 40)
-                        .onSubmit {
-                            if !inputText.isEmpty {
-                                hasSubmittedText = true
-                                isEditing = false
-                            }
-                        }
-                }
-                .padding(.horizontal, 15)
-                .padding(.vertical, 10)
-                .cornerRadius(25)
-            } else {
-                HStack(alignment: .top) {
-                    Text(inputText)
-                        .font(.system(size: 20))
-                        .foregroundColor(.black)
-                        .lineLimit(nil)
-                        .fixedSize(horizontal: false, vertical: true)
+        VStack(spacing: 16) {
+            // Main Reminder Content
+            VStack(spacing: 20) {
+                HStack(alignment: .top, spacing: 15) {
+                    // Profile Image with enhanced tap area
+                    Button(action: handleDismiss) {
+                        ProfileImageView(imageURL: imageURL, isLoaded: $isImageLoaded)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    .disabled(!isImageLoaded)
                     
-                    Spacer()
-                    
-                    Button(action: {
-                        isEditing = true
-                    }) {
-                        Image(systemName: "pencil")
-                            .font(.system(size: 16))
-                            .foregroundColor(.gray)
+                    // Text Input or Message
+                    if !hasSubmittedText || isEditing {
+                        TextInputView(
+                            inputText: $inputText,
+                            hasSubmittedText: $hasSubmittedText,
+                            isEditing: $isEditing
+                        )
+                    } else {
+                        SubmittedTextView(
+                            text: inputText,
+                            onEdit: { isEditing = true }
+                        )
                     }
                 }
-                .padding(.horizontal, 15)
-                .padding(.vertical, 10)
-                .frame(maxWidth: .infinity)
-                .cornerRadius(25)
+            }
+            .padding(20)
+            .background(Color.white)
+            .cornerRadius(20)
+            
+            // Tags Section
+            VStack(alignment: .leading) {
+                TagList(selectedTags: $selectedTags, onDismiss: onDismiss)
+            }
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .cornerRadius(20)
+        }
+        .frame(width: windowWidth)
+    }
+    
+    private func handleDismiss() {
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
+            onDismiss()
+        }
+    }
+}
+
+// MARK: - Subviews
+private struct ProfileImageView: View {
+    let imageURL: URL
+    @Binding var isLoaded: Bool
+    
+    var body: some View {
+        AsyncImage(url: imageURL) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+                    .frame(width: 80, height: 80)
+                    .onAppear { isLoaded = false }
+            case .success(let image):
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 80, height: 80)
+                    .clipShape(Circle())
+                    .onAppear { isLoaded = true }
+            case .failure(_):
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 80, height: 80)
+                    .foregroundColor(.gray)
+                    .onAppear { isLoaded = true }
+            @unknown default:
+                EmptyView()
+                    .onAppear { isLoaded = false }
             }
         }
-        .padding(20)
-        .frame(width: windowWidth)
-        .background(Color.white)
-        .cornerRadius(20)
+        .background(
+            Circle()
+                .stroke(Color.gray.opacity(0.3), lineWidth: 2)
+        )
+        .padding(10)
+        .background(
+            Circle()
+                .fill(Color.white)
+                .shadow(color: .gray.opacity(0.2), radius: 5)
+        )
+    }
+}
+
+private struct TextInputView: View {
+    @Binding var inputText: String
+    @Binding var hasSubmittedText: Bool
+    @Binding var isEditing: Bool
+    
+    var body: some View {
+        HStack {
+            TextField("Text Input", text: $inputText)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .foregroundColor(.black)
+                .accentColor(.black)
+                .frame(maxWidth: .infinity)
+                .frame(height: 40)
+                .onSubmit {
+                    if !inputText.isEmpty {
+                        hasSubmittedText = true
+                        isEditing = false
+                    }
+                }
+        }
+        .padding(.horizontal, 15)
+        .padding(.vertical, 10)
+        .cornerRadius(25)
+    }
+}
+
+private struct SubmittedTextView: View {
+    let text: String
+    let onEdit: () -> Void
+    
+    var body: some View {
+        HStack(alignment: .top) {
+            Text(text)
+                .font(.system(size: 20))
+                .foregroundColor(.black)
+                .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
+            
+            Spacer()
+            
+            Button(action: onEdit) {
+                Image(systemName: "pencil")
+                    .font(.system(size: 16))
+                    .foregroundColor(.gray)
+            }
+        }
+        .padding(.horizontal, 15)
+        .padding(.vertical, 10)
+        .frame(maxWidth: .infinity)
+        .cornerRadius(25)
     }
 }

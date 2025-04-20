@@ -5,8 +5,6 @@
 //  Created by Kaitlin Chow on 4/15/25.
 //
 
-// esther testing push
-
 import SwiftUI
 import RealityKit
 import RealityKitContent
@@ -25,8 +23,7 @@ struct ContentView: View {
         GeometryReader { geometry in
             ZStack {
                 // Background
-                Color.clear.edgesIgnoringSafeArea(.all)
-                
+            
                 // Carousel
                 ZStack(alignment: .center) {
                     ForEach(0..<profiles.count, id: \.self) { index in
@@ -43,17 +40,13 @@ struct ContentView: View {
                         .frame(width: 200, height: 200)
                         .offset(x: selectedProfile == nil ? offset(index) : (selectedProfile == index ? 0 : offset(index) * 2))
                         .zIndex(isSelected ? 1 : (1.0 - abs(dist) * 0.1))
-                        .opacity(isShowingDetail ? 0 : 1)  // Use isShowingDetail instead
+                        .opacity(isShowingDetail ? 0 : 1)
                         .onTapGesture {
                             withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
                                 if selectedProfile == index {
-                                    selectedProfile = nil
-                                    isShowingDetail = false
+                                    hideDetail()
                                 } else {
-                                    draggingItem = Double(index)
-                                    snappedItem = Double(index)
-                                    selectedProfile = index
-                                    isShowingDetail = true
+                                    showDetail(index)
                                 }
                             }
                         }
@@ -69,23 +62,22 @@ struct ContentView: View {
                         imageURL: profiles[selected].imageURL,
                         onDismiss: {
                             withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
-                                isShowingDetail = false
-                                selectedProfile = nil
+                                hideDetail()
                             }
                         }
                     )
-                    .zIndex(2)  // Ensure pop-up is always on top
+                    .zIndex(2)
                     .transition(.scale.combined(with: .opacity))
                 }
             }
             .gesture(
                 DragGesture()
                     .onChanged { value in
-                        guard selectedProfile == nil else { return }
+                        guard !isShowingDetail else { return }
                         draggingItem = snappedItem + value.translation.width / 100
                     }
                     .onEnded { value in
-                        guard selectedProfile == nil else { return }
+                        guard !isShowingDetail else { return }
                         withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                             draggingItem = snappedItem + value.predictedEndTranslation.width / 100
                             draggingItem = round(draggingItem).remainder(dividingBy: Double(profiles.count))
@@ -100,6 +92,18 @@ struct ContentView: View {
             )
         }
         .background(.clear)
+    }
+    
+    private func showDetail(_ index: Int) {
+        draggingItem = Double(index)
+        snappedItem = Double(index)
+        selectedProfile = index
+        isShowingDetail = true
+    }
+    
+    private func hideDetail() {
+        isShowingDetail = false
+        selectedProfile = nil
     }
     
     func distance(_ item: Int) -> Double {
