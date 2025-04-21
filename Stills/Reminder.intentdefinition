@@ -9,7 +9,7 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>NJJ812</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>24E248</string>
+	<string>24D2059</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
 	<string>16E140</string>
 	<key>INIntentDefinitionToolsVersion</key>
@@ -33,6 +33,10 @@
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Create Reminder</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>cc7OSM</string>
 					<key>INIntentParameterCombinationUpdatesLinked</key>
 					<true/>
 				</dict>
@@ -47,6 +51,10 @@
 					<true/>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Create Reminder</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>WI6VMX</string>
 				</dict>
 			</dict>
 			<key>INIntentParameters</key>
