@@ -6,7 +6,7 @@ import Intents
 import IntentsUI
 import EventKit
 
-class ReminderIntentHandler: NSObject, CreateReminderIntentHandling {
+class ReminderIntentHandler: NSObject, ReminderIntentHandling {
     private let eventStore = EKEventStore()
     
     func handle(intent: CreateReminderIntent, completion: @escaping (CreateReminderIntentResponse) -> Void) {
