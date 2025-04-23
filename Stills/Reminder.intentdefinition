@@ -9,7 +9,7 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>NJJ812</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>24E248</string>
+	<string>24D2059</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
 	<string>16E140</string>
 	<key>INIntentDefinitionToolsVersion</key>
@@ -25,15 +25,11 @@
 			<string>Creates a new reminder</string>
 			<key>INIntentDescriptionID</key>
 			<string>mMWvSt</string>
-			<key>INIntentInput</key>
-			<string>Title</string>
-			<key>INIntentKeyParameter</key>
-			<string>Title</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>4</integer>
+			<integer>2</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>Title,dueDate</key>
+				<key>parameter</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
@@ -49,18 +45,16 @@
 			<string>Intent</string>
 			<key>INIntentParameterCombinations</key>
 			<dict>
-				<key>Title,dueDate</key>
+				<key>parameter</key>
 				<dict>
 					<key>INIntentParameterCombinationIsLinked</key>
-					<true/>
-					<key>INIntentParameterCombinationIsPrimary</key>
 					<true/>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
 					<string>Create Reminder</string>
 					<key>INIntentParameterCombinationTitleID</key>
-					<string>aNid2F</string>
+					<string>WI6VMX</string>
 				</dict>
 			</dict>
 			<key>INIntentParameters</key>
@@ -84,44 +78,18 @@
 						<string>2kmfkS</string>
 					</dict>
 					<key>INIntentParameterName</key>
-					<string>Title</string>
+					<string>parameter</string>
 					<key>INIntentParameterPromptDialogs</key>
 					<array>
 						<dict>
 							<key>INIntentParameterPromptDialogCustom</key>
 							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Configuration</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
 							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>What would you like the reminder to be?</string>
+							<string>Test Prompt</string>
 							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>nI7t0A</string>
+							<string>LYQzqz</string>
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${Title}’.</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>7JpTze</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${Title}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>2x1HpP</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
 						</dict>
 					</array>
 					<key>INIntentParameterSupportsResolution</key>
@@ -130,50 +98,6 @@
 					<integer>2</integer>
 					<key>INIntentParameterType</key>
 					<string>String</string>
-				</dict>
-				<dict>
-					<key>INIntentParameterConfigurable</key>
-					<true/>
-					<key>INIntentParameterDisplayName</key>
-					<string>Due Date</string>
-					<key>INIntentParameterDisplayNameID</key>
-					<string>HigRXd</string>
-					<key>INIntentParameterDisplayPriority</key>
-					<integer>2</integer>
-					<key>INIntentParameterMetadata</key>
-					<dict>
-						<key>INIntentParameterMetadataDateStyle</key>
-						<string>Full</string>
-						<key>INIntentParameterMetadataFormat</key>
-						<string>Style</string>
-						<key>INIntentParameterMetadataTemplateID</key>
-						<string>ILYne0</string>
-						<key>INIntentParameterMetadataTimeStyle</key>
-						<string>Full</string>
-						<key>INIntentParameterMetadataType</key>
-						<string>DateTime</string>
-					</dict>
-					<key>INIntentParameterName</key>
-					<string>dueDate</string>
-					<key>INIntentParameterPromptDialogs</key>
-					<array>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Configuration</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Primary</string>
-						</dict>
-					</array>
-					<key>INIntentParameterTag</key>
-					<integer>4</integer>
-					<key>INIntentParameterType</key>
-					<string>DateComponents</string>
 				</dict>
 			</array>
 			<key>INIntentResponse</key>

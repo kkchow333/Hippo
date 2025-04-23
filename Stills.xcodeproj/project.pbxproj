@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		25B891842DB690B90001A12E /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B891832DB690B90001A12E /* ARKit.framework */; };
 		25B891A72DB691F20001A12E /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B891A62DB691F20001A12E /* SceneKit.framework */; };
+		25B891AD2DB84C800001A12E /* RealityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B891AC2DB84C800001A12E /* RealityKit.framework */; };
 		CED1CF322DAF24D2005BE9B0 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = CED1CF312DAF24D2005BE9B0 /* RealityKitContent */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		25B891832DB690B90001A12E /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		25B891A62DB691F20001A12E /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		25B891AC2DB84C800001A12E /* RealityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealityKit.framework; path = System/Library/Frameworks/RealityKit.framework; sourceTree = SDKROOT; };
 		CED1CF2C2DAF24D2005BE9B0 /* Stills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED1CF302DAF24D2005BE9B0 /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		CED1CF442DAF24D3005BE9B0 /* StillsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StillsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +65,7 @@
 			files = (
 				25B891842DB690B90001A12E /* ARKit.framework in Frameworks */,
 				25B891A72DB691F20001A12E /* SceneKit.framework in Frameworks */,
+				25B891AD2DB84C800001A12E /* RealityKit.framework in Frameworks */,
 				CED1CF322DAF24D2005BE9B0 /* RealityKitContent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,6 +83,7 @@
 		25B891822DB690B90001A12E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				25B891AC2DB84C800001A12E /* RealityKit.framework */,
 				25B891A62DB691F20001A12E /* SceneKit.framework */,
 				25B891832DB690B90001A12E /* ARKit.framework */,
 			);
@@ -267,6 +271,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -292,6 +297,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};

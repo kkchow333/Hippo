@@ -4,6 +4,7 @@ struct ReminderView: View {
     let name: String
     let imageURL: URL
     let onDismiss: () -> Void
+    let showProfileImage: Bool
     @State private var inputText: String = ""
     @State private var isEditing: Bool = false
     @State private var hasSubmittedText: Bool = false
@@ -13,17 +14,26 @@ struct ReminderView: View {
     // Customizable window width
     let windowWidth: CGFloat = 500
     
+    init(name: String, imageURL: URL, onDismiss: @escaping () -> Void, showProfileImage: Bool = true) {
+        self.name = name
+        self.imageURL = imageURL
+        self.onDismiss = onDismiss
+        self.showProfileImage = showProfileImage
+    }
+    
     var body: some View {
         VStack(spacing: 16) {
             // Main Reminder Content
             VStack(spacing: 20) {
                 HStack(alignment: .top, spacing: 15) {
-                    // Profile Image with enhanced tap area
-                    Button(action: handleDismiss) {
-                        ProfileImageView(imageURL: imageURL, isLoaded: $isImageLoaded)
+                    if showProfileImage {
+                        // Profile Image with enhanced tap area
+                        Button(action: handleDismiss) {
+                            ProfileImageView(imageURL: imageURL, isLoaded: $isImageLoaded)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .disabled(!isImageLoaded)
                     }
-                    .buttonStyle(PlainButtonStyle())
-                    .disabled(!isImageLoaded)
                     
                     // Text Input or Message
                     if !hasSubmittedText || isEditing {
@@ -158,4 +168,13 @@ private struct SubmittedTextView: View {
         .frame(maxWidth: .infinity)
         .cornerRadius(25)
     }
+}
+
+#Preview {
+    ReminderView(
+        name: "John Doe",
+        imageURL: URL(string: "https://example.com/profile.jpg")!,
+        onDismiss: {},
+        showProfileImage: true
+    )
 }
