@@ -1,5 +1,6 @@
 import SwiftUI
 import RealityKit
+import RealityKitContent
 
 struct ReminderPlacementView: View {
     @State private var showReminderView = false
@@ -7,10 +8,9 @@ struct ReminderPlacementView: View {
     @GestureState private var dragState = false
     
     var body: some View {
-        ZStack {
+        VStack(spacing: 0) {
             // Background content
             RealityView { content in
-                // Create a floor anchor for spatial awareness
                 let anchor = AnchorEntity(.plane(.horizontal, classification: .floor, minimumBounds: [0.5, 0.5]))
                 content.add(anchor)
             }
@@ -40,7 +40,7 @@ struct ReminderPlacementView: View {
                         .font(.system(size: 30))
                 }
                 .frame(width: 100, height: 100, alignment: .topLeading)
-                .position(x: 50, y: 0) // Align with top of window
+                .position(x: 70, y: 350)
             }
         }
         .frame(width: showReminderView ? 800 : 100, height: showReminderView ? 600 : 100)
