@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		25B891842DB690B90001A12E /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B891832DB690B90001A12E /* ARKit.framework */; };
 		25B891A72DB691F20001A12E /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B891A62DB691F20001A12E /* SceneKit.framework */; };
-		25B891AD2DB84C800001A12E /* RealityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25B891AC2DB84C800001A12E /* RealityKit.framework */; };
 		CED1CF322DAF24D2005BE9B0 /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = CED1CF312DAF24D2005BE9B0 /* RealityKitContent */; };
 /* End PBXBuildFile section */
 
@@ -65,7 +64,6 @@
 			files = (
 				25B891842DB690B90001A12E /* ARKit.framework in Frameworks */,
 				25B891A72DB691F20001A12E /* SceneKit.framework in Frameworks */,
-				25B891AD2DB84C800001A12E /* RealityKit.framework in Frameworks */,
 				CED1CF322DAF24D2005BE9B0 /* RealityKitContent in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,6 +193,9 @@
 			);
 			mainGroup = CED1CF232DAF24D2005BE9B0;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				25B8929B2DB99ED40001A12E /* XCLocalSwiftPackageReference "Packages/RealityKitContent" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = CED1CF2D2DAF24D2005BE9B0 /* Products */;
 			projectDirPath = "";
@@ -493,6 +494,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		25B8929B2DB99ED40001A12E /* XCLocalSwiftPackageReference "Packages/RealityKitContent" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/RealityKitContent;
+		};
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		CED1CF312DAF24D2005BE9B0 /* RealityKitContent */ = {
