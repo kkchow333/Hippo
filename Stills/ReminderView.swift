@@ -55,13 +55,9 @@ struct ReminderView: View {
             .cornerRadius(20)
             
             // Tags Section
-            VStack(alignment: .leading) {
-                TagList(selectedTags: $selectedTags, onDismiss: onDismiss)
-            }
-            .padding(.vertical, 12)
-            .padding(.horizontal, 16)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .cornerRadius(20)
+            TagList(selectedTags: $selectedTags, onDismiss: onDismiss)
+                .padding(.horizontal, 16)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(width: windowWidth)
     }
