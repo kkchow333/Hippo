@@ -31,7 +31,8 @@ struct TagList: View {
     @State private var currentRepeatIndex = 0
     @State private var timeTagTitle = "Time"
     @State private var dateTagTitle = "Date"
-    @State private var showingHiddenTags = false  // New state for managing hidden tags
+    @State private var showingHiddenTags = false
+    @State private var currentHiddenTagIndex = 0  // Track which hidden tag to show
     let onDismiss: () -> Void
     
     private let timeFormatter: DateFormatter = {
@@ -71,7 +72,9 @@ struct TagList: View {
             // Single container for all tags
             FlowLayout(
                 mode: .scrollable,
-                items: showingHiddenTags ? (visibleTags + hiddenTags) : visibleTags,
+                items: showingHiddenTags ?
+                    (visibleTags + [hiddenTags[currentHiddenTagIndex]]) :
+                    visibleTags,
                 spacing: 8
             ) { tag in
                 if tag.type == .plus {
@@ -82,8 +85,18 @@ struct TagList: View {
                         isHiddenTag: false,
                         showingHiddenTags: showingHiddenTags,
                         action: {
-                            // Remove the animation from the toggle itself
-                            showingHiddenTags.toggle()
+                            if showingHiddenTags {
+                                // Move to next hidden tag or hide if we've shown all
+                                if currentHiddenTagIndex < hiddenTags.count - 1 {
+                                    currentHiddenTagIndex += 1
+                                } else {
+                                    showingHiddenTags = false
+                                    currentHiddenTagIndex = 0
+                                }
+                            } else {
+                                showingHiddenTags = true
+                                currentHiddenTagIndex = 0
+                            }
                         }
                     )
                 } else {
@@ -100,6 +113,8 @@ struct TagList: View {
                         action: {
                             if hiddenTags.contains(tag) {
                                 moveTagToVisible(tag)
+                                // Reset hidden tag index after moving a tag
+                                currentHiddenTagIndex = 0
                             } else {
                                 handleTagTap(tag)
                             }
@@ -111,20 +126,7 @@ struct TagList: View {
             .padding(.vertical, 8)
             .background(Color.black.opacity(0.2))
             .cornerRadius(12)
-            .frame(width: 500, height: 400)
-            // Only animate the opacity of hidden tags
-            .onChange(of: showingHiddenTags) { _, isShowing in
-                if isShowing {
-                    // Animate the appearance of hidden tags
-                    withAnimation(.easeIn(duration: 0.2)) {
-                        // This will only affect the hidden tags' opacity
-                        hiddenTags.forEach { tag in
-                            // You might need to add an opacity state to your Tag model
-                            // and update it here
-                        }
-                    }
-                }
-            }
+            .frame(width: 500, height: 100)
             
             // Picker overlays
             if showingTimePicker {
@@ -211,6 +213,7 @@ struct TagList: View {
             // If there are no more hidden tags, hide the menu
             if hiddenTags.isEmpty {
                 showingHiddenTags = false
+                currentHiddenTagIndex = 0
             }
         }
     }
